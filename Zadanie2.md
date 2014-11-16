@@ -113,7 +113,7 @@ Wynik przedstawiony w postaci wykresu kołowego:
 
 ![Alt text](https://raw.githubusercontent.com/adrozdowski/NoSQL/master/Images/Zadanie2Zapytanie3.jpg)
 ###Zapytanie 4
-Szukamy wpisów które zostały skomentowane oraz mają status Disliked.
+Największa ilość pozytywnych wpisów.
 
 #MongoDB
 ```sh
