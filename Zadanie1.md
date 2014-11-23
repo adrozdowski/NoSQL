@@ -154,8 +154,10 @@ if (licznikRekordów % 10000 === 0 || licznikRekordów === 6034195) {
 print("Tagi:" + licznikTagów);
 print("Unikalne Tagi:" + licnzikUnikalnychTagów);
 ```
-17409994
-42048
+```sh
+Tagi: 17409994
+Unikalne Tagi: 42048
+```
 
 ### Zadanie 1d
 Importujemy do Mongo bazę z ważniejszymi miastami Polski. Czynimi to za pomocą poniższego polecenia: 
