@@ -51,6 +51,8 @@ Wynik przedstawiony w postaci wykresu kołowego:
 
 ![Alt text](https://raw.githubusercontent.com/adrozdowski/NoSQL/master/Images/Zadanie2Zapytanie1.jpg)
 
+  
+
 
 ###Zapytanie 2
 
@@ -144,3 +146,20 @@ Wynik przedstawiony w postaci tabelki:
 Wynik przedstawiony w postaci wykresu kołowego:
 
 ![Alt text](https://raw.githubusercontent.com/adrozdowski/NoSQL/master/Images/Zadanie2Zapytanie4.jpg)
+
+###Uwaga! 
+
+W czasie używania funkcji agregujących w Mongo 2.8.0 napotkałem na kilka problemów. Rozwiązania na szczęcie znalazłem stronach internetowych. Chociaż nie jestem pewien czasów jakie otrzymałem w przypadku Mongo 2.8.0 RC. Znacznie róźnią się od "gorszej" wersji. Wyniki zapytań były identyczne jak w przypadku Mongo 2.6.4 i PyMongo.
+
+Czas działania agregacji (Podałem tylko czas rzeczywisty):
+
+| Zapytania   |   Mongo 2.6.4   |     PyMongo     |  Mongo 2.8.0 RC  |
+|-------------|:---------------:|:---------------:|:----------------:|
+| Zapytanie 1 | real,65m08.312s | real,69m24.881s | real,90m11.756s  |
+| Zapytanie 2 | real,70m22.559s | real,75m45.714s | real,111m25.483s |
+| Zapytanie 3 | real,69m46.713s | real,75m22.741s | real,112m12.649s |
+| Zapytanie 4 | real,71m43.012s | real,77m57.998s | real,113m09.652s |
+
+
+
+
