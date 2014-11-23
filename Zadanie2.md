@@ -153,7 +153,7 @@ W czasie używania funkcji agregujących w Mongo 2.8.0 napotkałem na kilka prob
 
 Czas działania agregacji (Podałem tylko czas rzeczywisty):
 
-| Zapytania   |   Mongo 2.6.4   |     PyMongo     |  Mongo 2.8.0 RC  |
+| Zapytania   |   Mongo 2.6.4   |     PyMongo     |  Mongo 2.8.0 RC wiredtiger |
 |-------------|:---------------:|:---------------:|:----------------:|
 | Zapytanie 1 | real,65m08.312s | real,69m24.881s | real,90m11.756s  |
 | Zapytanie 2 | real,70m22.559s | real,75m45.714s | real,111m25.483s |
