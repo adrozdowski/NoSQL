@@ -62,18 +62,25 @@ Czas jest podawany w milisekundach.
 
 | Baza Danych |                    Import I                    |                    Import II                   |                   Import III                   |
 |-------------|:----------------------------------------------:|:----------------------------------------------:|:----------------------------------------------:|
-|   MongoDB   | real,13m22.426s  user,1m58.598s  sys,0m19.360s | real,13m21.256s  user,1m58.112s  sys,0m18.101s | real,13m21.313s  user,1m58.280s  sys,0m19.112s |
-| PostgreSQL  |                  964411.873ms (około 14 minut)                 |                                  963775.013ms (około 14 minut)  | 964678.256ms (około 14 minut)                                  |
+|   MongoDB (2.6.4)   | real,13m22.426s  user,1m58.598s  sys,0m19.360s | real,13m21.256s  user,1m58.112s  sys,0m18.101s | real,13m21.313s  user,1m58.280s  sys,0m19.112s |
+| PostgreSQL  |                  964411.873ms (około 14 minut)                 |                                  963775.013ms (około 14 minut)  | 964678.256ms (około 14 minut)     
+| Mongo 2.8.0 RC z WiredTiger  |                  1164411.873ms (około 15 minut)                 |                                  -  | -                                 |
 
-Przy Imporcie II zestawiłem ze sobą wykresy obciążenia procesora i RAM-u dla MongoDB i PostrgeSQL.
+Przy Imporcie II zestawiłem ze sobą wykresy obciążenia procesora i RAM-u dla MongoDB i PostrgeSQL. Z problemów wynikających z użycia nowej wersji Mongo tylko raz wykonałem import. Liczba rekordów się zgadzała.
 
-###MongoDB
+###MongoDB (2.6.4)
 
 ![Alt text](https://raw.githubusercontent.com/adrozdowski/NoSQL/master/Images/SystemMonitor1.jpg)
 
 ###PostreSQL
 
 ![Alt text](https://raw.githubusercontent.com/adrozdowski/NoSQL/master/Images/SystemMonitor2.jpg)
+
+###MongoDB (2.8.0 RC z wiredtiger)
+
+![Alt text](https://raw.githubusercontent.com/adrozdowski/NoSQL/master/Images/SystemMonitor3.jpg)
+
+Nie wiem skąd takie zużycie procesora...
 
 ### Zadanie 1b
 Aby policzyc ilosc dokumentow w kolekcji w konsoli mongo wpisalem:
@@ -86,8 +93,30 @@ Wynik:
 ```
 
 ### Zadanie 1c
+Poniższy skrypt uruchamiamy za pomocą komendy:
+
 ```sh
-var database = db.Train.find();
+time skrypt1c.js
+
+```
+
+Czas wykonania to:
+###MongoDB (2.6.4)
+
+```sh
+real,10m35.108s 
+user,9m02.879s  
+sys,0m10.058s
+```
+###MongoDB (2.8.0 RC)
+
+```sh
+real,18m01.898s 
+user,16m02.553s  
+sys,0m25.112s
+```
+```sh
+var database = db.Topics.find();
 
 var tags = {};
 var records = [];
@@ -125,6 +154,8 @@ if (licznikRekordów % 10000 === 0 || licznikRekordów === 6034195) {
 print("Tagi:" + licznikTagów);
 print("Unikalne Tagi:" + licnzikUnikalnychTagów);
 ```
+17409994
+42048
 
 ### Zadanie 1d
 Importujemy do Mongo bazę z ważniejszymi miastami Polski. Czynimi to za pomocą poniższego polecenia: 
@@ -174,4 +205,3 @@ Zapytanie 6. Miasta na drodze pomiędzy Gdańskiem a Zakopanem:
 db.polskieMiasta.find({loc: {$geoIntersects: {$geometry: {type: "LineString", coordinates: [ [[18.655128479003906,54.34815256064472]], [19.948768615722656,49.29803885147804]]}}}})
 ```
 Mapka dla zapytania 6: [Geojson6](https://github.com/adrozdowski/NoSQL/blob/master/Images/Zapytanie6.geojson)
-
