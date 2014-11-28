@@ -204,6 +204,7 @@ Mapka dla zapytania 5: [Geojson5](https://github.com/adrozdowski/NoSQL/blob/mast
 
 Zapytanie 6. Miasta na drodze pomiędzy Gdańskiem a Zakopanem:
 ```js
-db.polskieMiasta.find({loc: {$geoIntersects: {$geometry: {type: "LineString", coordinates: [ [[18.655128479003906,54.34815256064472]], [19.948768615722656,49.29803885147804]]}}}})
+db.polskieMiasta.find({loc: {$geoIntersects: {$geometry: {type: "LineString", coordinates: [ [[18.655128479003906,54.34815256064472]], 
+[19.948768615722656,49.29803885147804]]}}}})
 ```
 Mapka dla zapytania 6: [Geojson6](https://github.com/adrozdowski/NoSQL/blob/master/Images/Zapytanie6.geojson)
