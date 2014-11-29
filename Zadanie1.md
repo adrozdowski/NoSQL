@@ -58,15 +58,30 @@ Do wyliczenia czasu w Postrgesie posłużyłem się komendą:
 ```
 Czas jest podawany w milisekundach.
 
+Do sprawdzenia rozmiaru bazy danych w mongoDB posłużyłem się poleceniem:
+
+```sh
+db.stats()
+```
+Do sprawdzenia rozmiaru bazy danych w postgresie użyłem:
+
+```sh
+sqview-# SELECT pg_size_pretty(pg_database_size(‘sqview’));
+pg_size_pretty
+```
+
 ##Zestawiennie czasów
 
-| Baza Danych |                    Import I                    |                    Import II                   |                   Import III                   |
-|-------------|:----------------------------------------------:|:----------------------------------------------:|:----------------------------------------------:|
-|   MongoDB (2.6.4)   | real,13m22.426s  user,1m58.598s  sys,0m19.360s | real,13m21.256s  user,1m58.112s  sys,0m18.101s | real,13m21.313s  user,1m58.280s  sys,0m19.112s |
-| PostgreSQL  |                  964411.873ms (około 14 minut)                 |                                  963775.013ms (około 14 minut)  | 964678.256ms (około 14 minut)     
-| Mongo 2.8.0 RC z WiredTiger  |                  1164411.873ms (około 15 minut)                 |                                  -  | -                                 |
+| Baza Danych                |                    Czas importu                   | Szybkość (ilość danych importowanych na sekundę) |       Objętość bazy danych      |
+|----------------------------|:-------------------------------------------------:|:------------------------------------------------:|:-------------------------------:|
+| MongoDB 2.6.4 (mmap v1)    |                  real,13m22.426s                  |             7520 rekordów na sekundę             | około 13,9 GB                     |
+|         PostgreSQL         | 16 minut 4,44 sekund  (przeliczony  z milisekund) |             6257 rekordów na sekundę             | około 5 GB                      |
+| Mongo 2.8.0 RC  WiredTiger (bez kompresji)|                   real,15m21.256s  |             6550 rekordów na sekundę             | około 9,85 GB                      |
+| Mongo 2.8.0 RC  WiredTiger (snappy)|                   real,15m21.256s         |             6550 rekordów na sekundę             | około 4.04 GB                      |
+| Mongo 2.8.0 RC  WiredTiger (zlib)|                   real,15m21.256s           |             6550 rekordów na sekundę             | około 3.05 GB                      |
 
-Przy Imporcie II zestawiłem ze sobą wykresy obciążenia procesora i RAM-u dla MongoDB i PostrgeSQL. Z problemów wynikających z użycia nowej wersji Mongo tylko raz wykonałem import. Liczba rekordów się zgadzała.
+ 
+
 
 ###MongoDB (2.6.4)
 
