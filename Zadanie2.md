@@ -12,26 +12,45 @@ db = MongoClient().test
 Agragacja ma policzyć i zwrócić 10 reżyserów, którzy mają na swoim koncie najmniejszą liczbę filmów
 
 #MongoDB
-```sh
-db.movies.aggregate(
-    { $match: {"modelName": "movies" || "tv_shows"  } },
-    { $group: {_id: {"dir": "$director", id: "$title"}, count: {$sum: 1}} },
-    { $group: {_id: "$_id.dir" , count: {$sum: 1}} },
-    { $sort: {count: 1} },
-    { $limit : 10}
-    );
+
+```js
+var options = {allowDiskUse: true, cursor: {batchSize: 4}};
+var match = { $match: {"modelName": "movies" || "tv_shows"  } };
+var groupByDirTit = { $group: {_id: {"dir": "$director", id: "$title"}, count: {$sum: 1}} };
+var groupByDir = { $group: {_id: "$_id.dir" , count: {$sum: 1}} };
+var sort = { $sort: {count: 1} };
+var limit =  { $limit : 10};
+
+var cursor = db.movies.aggregate([
+  match,
+  groupByDirTit,
+  groupByDir,
+  sort,
+  limit
+  ], options);
 ```
 
 #pymongo
+
 ```sh
-db.movies.aggregate(
-    { "$match": {"modelName": "movies" || "tv_shows"  } },
-    { "$group": {"_id": {"dir": "$director", "id": "$title"}, "count": {"$sum": 1}} },
-    { "$group": {"_id": "$_id.dir" , "count": {"$sum": 1}} },
-    { "$sort": {"count": 1} },
-    { "$limit" : 10}
-    );
+options = {"allowDiskUse": True, "cursor": {"batchSize": 4}}
+match = { "$match": {"modelName": "movies" || "tv_shows"  } }
+groupByDirTit = { "$group": {"_id": {"dir": "$director", "id": "$title"}, "count": {"$sum": 1}} }
+groupByDir =  { "$group": {"_id": "$_id.dir" , "count": {"$sum": 1}} }
+sort =  { "$sort": {"count": 1} }
+limit = { "$limit" : 10}
+
+
+cursor = db.movies.aggregate([
+match,
+  groupByDirTit,
+  groupByDir,
+  sort,
+  limit
+  ], options)
 ```
+
+
 Wynik przedstawiony w postaci tabelki:
 
 |      Reżyser      | Ilość fimów |
@@ -47,34 +66,46 @@ Wynik przedstawiony w postaci tabelki:
 | Tate Taylor       |      1      |
 | steven pimlott    |      1      |
 
-Wynik przedstawiony w postaci wykresu kołowego:
-
-![Alt text](https://raw.githubusercontent.com/adrozdowski/NoSQL/master/Images/Zadanie2Zapytanie1.jpg)
-
-  
-
 
 ###Zapytanie 2
 
 
 Agregacja odpowiada na pytanie, jakie jest 5 najmniej popularnych filmów i przedstawień TV?
+
 #MongoDB
-```sh
-db.movies.aggregate(
-    { $match: {"modelName": "movies" || "tv_shows"  } },
-    { $group: {_id: "$title", count: {$sum: 1}} },
-    { $sort: {count: 1} },
-    { $limit : 5}
-    );	
-  ```  
+
+```js
+var options = {allowDiskUse: true, cursor: {batchSize: 4}};
+var match = {$match: {"modelName": "movies" || "tv_shows"  } };
+var group ={$group: {_id: "$title", count: {$sum: 1}} };
+var sort ={$sort: {count: 1} };
+var limit = {$limit : 5};
+
+cursor = db.movies.aggregate([
+  match,
+  group,
+  sort,
+  limit
+  ], options);
+```
+ 
 #pymongo
+
 ```sh
-db.movies.aggregate(
-    { "$match": {"modelName": "movies" || "tv_shows"  } },
-    { "$group": {"_id": "$title", "count": {"$sum": 1}} },
-    { "$sort": {"count": 1} },
-    { "$limit" : 5}
-    );	
+options = {"allowDiskUse": True, "cursor": {"batchSize": 4}}
+match = { "$match": {"modelName": "movies" || "tv_shows"  } }
+group = { "$group": {"_id": "$title", "count": {"$sum": 1}} }
+sort = { "$sort": {"count": 1} }
+limit = { "$limit" : 5}
+
+cursor = db.movies.aggregate([
+  match,
+  group,
+  sort,
+  limit
+  ], options)
+
+
 ```
 Wynik przedstawiony w postaci tabelki:
 
@@ -86,20 +117,39 @@ Wynik przedstawiony w postaci tabelki:
 | Government Girl                     |        1        |
 | sasuke                              |        1        |
 
-Wynik przedstawiony w postaci wykresu kołowego:
 
-![Alt text](https://raw.githubusercontent.com/adrozdowski/NoSQL/master/Images/Zadanie2Zapytanie2.jpg)
 
 ###Zapytanie 3
 5 najbardziej aktywnych użytkowników
 #MongoDB
-```sh
-db.movies.aggregate({$group:{_id: "$userId", count:{$sum: 1}}},{$sort:{count: -1}},{$limit: 5});
+
+```js
+var options = {allowDiskUse: true, cursor: {batchSize: 4}};
+var group = {$group:{_id: "$userId", count:{$sum: 1}}};
+var sort = {$sort:{count: -1}};
+var limit = {$limit: 5});
+
+cursor = db.movies.aggregate([
+  group,
+  sort,
+  limit
+  ], options);
 ```
+
+
 #pymongo
 ```sh
+options = {"allowDiskUse": True, "cursor": {"batchSize": 4}}
+group = {"$group":{"_id": "$userId", "count":{"$sum": 1}}}
+sort = {"$sort":{"count": -1}}
+limit = {"$limit": 5}
 
-db.movies.aggregate({"$group":{"_id": "$userId", "count":{"$sum": 1}}},{"$sort":{"count": -1}},{"$limit": 5});
+cursor = db.movies.aggregate([
+  group,
+  sort,
+  limit
+  ], options)
+  
 ```
 Wynik przedstawiony w postaci tabelki:
 
@@ -118,15 +168,44 @@ Wynik przedstawiony w postaci wykresu kołowego:
 Największa ilość pozytywnych wpisów.
 
 #MongoDB
-```sh
-db.movies.aggregate( { $match: { "action": "Liked" }},{ $match: { "comment": {$ne: ""} } }, { $group: { _id: "$title", count: {$sum: 1} } }, { $sort: { count: -1 } }, { $limit: 10 } );
+
+```js
+var options = {allowDiskUse: true, cursor: {batchSize: 4}};
+var matchAction = { $match: { "action": "Liked" }};
+var matchComment = { $match: { "comment": {$ne: ""} } };
+var group = { $group: { _id: "$title", count: {$sum: 1} } };
+var sort = { $sort: { count: -1 } };
+var limit = { $limit: 10 };
+
+cursor = db.movies.aggregate([
+  matchAction,
+  matchComment,
+  group,
+  sort,
+  limit
+  ], options);
 
 ```
 #pymongo
+
 ```sh
-db.movies.aggregate( { "$match": { "action": "Liked" }},{ "$match": { "comment": {"$ne": ""} } }, { "$group": { "_id": "$title", "count": {"$sum": 1} } }, { "$sort": { "count": -1 } }, { "$limit": 10 } );
+options = {"allowDiskUse": True, "cursor": {"batchSize": 4}}
+matchAction =  {"$match": { "action": "Liked" }}
+matchComment = { "$match": { "comment": {"$ne": ""} } }
+group = { "$group": { "_id": "$title", "count": {"$sum": 1} } }
+sort = { "$sort": { "count": -1 } }
+limit =  { "$limit": 10 }
+
+cursor = db.movies.aggregate([
+  matchAction,
+  matchComment,
+  group,
+  sort,
+  limit
+  ], options)
 
 ```
+
 
 Wynik przedstawiony w postaci tabelki:
 
