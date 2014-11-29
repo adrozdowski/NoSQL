@@ -66,7 +66,7 @@ db.stats()
 Do sprawdzenia rozmiaru bazy danych w postgresie użyłem:
 
 ```sh
-sqview-# SELECT pg_size_pretty(pg_database_size(‘sqview’));
+trainpsql-# SELECT pg_size_pretty(pg_database_size(‘trainpsql’));
 pg_size_pretty
 ```
 
