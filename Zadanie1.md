@@ -169,7 +169,7 @@ Dodajemy geoindeks do kolekcji places:
 
 db.places.ensureIndex({loc : "2dsphere"})
 ```
-Zapytanie 1: Miasta oddalone od Warszawy o maksymalnie o 100 km:
+##### Zapytanie 1: Miasta oddalone od Warszawy o maksymalnie o 100 km:
 ```js
 db.polskieMiasta.find(
   {loc: {
@@ -187,7 +187,7 @@ db.polskieMiasta.find(
 ```
 Mapka dla zapytania 1: [Geojson1](https://github.com/adrozdowski/NoSQL/blob/master/Images/Zapytanie1.geojson)
 
-Zapytanie 2: Poniższe zapytanie prezentuje mniejwięcej kształt województwa świętokrzyskiego:
+##### Zapytanie 2: Poniższe zapytanie prezentuje mniejwięcej kształt województwa świętokrzyskiego:
 ```js
 db.polskieMiasta.find(
   {
@@ -225,7 +225,7 @@ db.polskieMiasta.find(
 ```
 Mapka dla zapytania 2: [Geojson2](https://github.com/adrozdowski/NoSQL/blob/master/Images/Zapytanie2.geojson)
 
-Zapytanie 3. Szukamy miast będących na południku 22.93121337890625:
+##### Zapytanie 3. Szukamy miast będących na południku 22.93121337890625:
 ```js
 db.polskieMiasta.find(
   {
@@ -245,7 +245,7 @@ db.polskieMiasta.find(
 ```
 Mapka dla zapytania 3: [Geojson3](https://github.com/adrozdowski/NoSQL/blob/master/Images/Zapytanie3.geojson)
 
-Zapytanie 4. Szuakmy trzech miast najbliższych Ostrowcowi Świętokrzyskiemu:
+##### Zapytanie 4. Szuakmy trzech miast najbliższych Ostrowcowi Świętokrzyskiemu:
 ```js
 db.polskieMiasta.find(
   {
@@ -263,7 +263,7 @@ db.polskieMiasta.find(
 ```
 Mapka dla zapytania 4: [Geojson4](https://github.com/adrozdowski/NoSQL/blob/master/Images/Zapytanie4.geojson)
 
-Zapytanie 5. Reuzltat taki sam jak w zapytaniu 2. Użycie komendy $geoIntersect (co zachodzi w interakcję z polygonem)
+##### Zapytanie 5. Reuzltat taki sam jak w zapytaniu 2. Użycie komendy $geoIntersect (co zachodzi w interakcję z polygonem)
 ```js
 db.polskieMiasta.find(
   {
@@ -301,7 +301,7 @@ db.polskieMiasta.find(
 ```
 Mapka dla zapytania 5: [Geojson5](https://github.com/adrozdowski/NoSQL/blob/master/Images/Zapytanie2.geojson) 
 
-Zapytanie 6. Miasta na drodze pomiędzy Gdańskiem a Zakopanem:
+##### Zapytanie 6. Miasta na drodze pomiędzy Gdańskiem a Zakopanem:
 ```js
 db.polskieMiasta.find(
   {
