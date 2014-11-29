@@ -170,41 +170,155 @@ Dodajemy geoindeks do kolekcji places:
 db.places.ensureIndex({loc : "2dsphere"})
 ```
 Zapytanie 1: Miasta oddalone od Warszawy o maksymalnie o 100 km:
-```sh
-db.polskieMiasta.find({loc: {$near: {$geometry: {type: "Point", coordinates: [21.000366210937496, 52.231163984032676]}, $maxDistance: 100000}}}).skip(1)
+```js
+db.polskieMiasta.find(
+  {loc: {
+    $near: {
+      $geometry: {
+        type: "Point", 
+        coordinates: 
+          [21.000366210937496, 52.231163984032676]
+          }, 
+          $maxDistance: 100000
+        }
+      }
+    }
+  ).skip(1)
 ```
 Mapka dla zapytania 1: [Geojson1](https://github.com/adrozdowski/NoSQL/blob/master/Images/Zapytanie1.geojson)
 
 Zapytanie 2: Poniższe zapytanie prezentuje mniejwięcej kształt województwa świętokrzyskiego:
 ```js
-db.polskieMiasta.find({loc: {$geoWithin: {$geometry: {type: "Polygon", coordinates: [[[20.390625,50.194484528931746], [20.247802734375,50.47498691278631], 
-[19.791870117187496,50.548344490674786], [ 19.8577880859375, 50.666872321810715], [19.808349609375,50.830228205617445], [19.852294921874996,51.02412130394265], [20.0445556640625,50.965346321637696],[20.0115966796875,51.193115244645874],[20.28076171875,51.26191485308454],[20.423583984375, 51.334043778789415],[20.753173828125, 51.144894309328016],[ 21.1376953125,51.138001488062564],[21.5167236328125,51.0033856925319],[21.8353271484375,51.07591977545679],[21.829833984375,50.719069112580804],[20.7421875,50.240178884797025],[20.401611328125,50.1804159214388],[20.390625,50.194484528931746]]]}}}})
+db.polskieMiasta.find(
+  {
+    loc: {
+      $geoWithin: {
+        $geometry: {
+          type: "Polygon", 
+          coordinates: [
+            [
+              [20.390625,50.194484528931746], 
+              [20.247802734375,50.47498691278631], 
+              [19.791870117187496,50.548344490674786], 
+              [19.8577880859375, 50.666872321810715], 
+              [19.808349609375,50.830228205617445], 
+              [19.852294921874996,51.02412130394265], 
+              [20.0445556640625,50.965346321637696],
+              [20.0115966796875,51.193115244645874],
+              [20.28076171875,51.26191485308454],
+              [20.423583984375, 51.334043778789415],
+              [20.753173828125, 51.144894309328016],
+              [21.1376953125,51.138001488062564],
+              [21.5167236328125,51.0033856925319],
+              [21.8353271484375,51.07591977545679],
+              [21.829833984375,50.719069112580804],
+              [20.7421875,50.240178884797025],
+              [20.401611328125,50.1804159214388],
+              [20.390625,50.194484528931746]
+            ] 
+          ]
+        }
+      }
+    }
+  }
+)
 ```
 Mapka dla zapytania 2: [Geojson2](https://github.com/adrozdowski/NoSQL/blob/master/Images/Zapytanie2.geojson)
 
 Zapytanie 3. Szukamy miast będących na południku 22.93121337890625:
 ```js
-db.polskieMiasta.find({loc: {$geoIntersects: {$geometry: {type: "LineString", coordinates: [[22.93121337890625, -90],[22.93121337890625, 90]]}}}})
-     
+db.polskieMiasta.find(
+  {
+    loc: {
+      $geoIntersects: {
+        $geometry: {
+          type: "LineString", 
+          coordinates: [
+            [22.93121337890625, -90],
+            [22.93121337890625, 90]
+          ]
+        }
+      }
+    }
+  }
+)
 ```
 Mapka dla zapytania 3: [Geojson3](https://github.com/adrozdowski/NoSQL/blob/master/Images/Zapytanie3.geojson)
 
 Zapytanie 4. Szuakmy trzech miast najbliższych Ostrowcowi Świętokrzyskiemu:
 ```js
-db.polskieMiasta.find({loc: {$near: {$geometry: {type: "Point", coordinates: [21.38711929321289, 50.9393925139039]}}}}).limit(3)
+db.polskieMiasta.find(
+  {
+    loc: {
+      $near: {
+        $geometry: {
+          type: "Point", 
+          coordinates: 
+            [21.38711929321289, 50.9393925139039]
+          }   
+        }
+      }
+    }
+  ).limit(3)
 ```
 Mapka dla zapytania 4: [Geojson4](https://github.com/adrozdowski/NoSQL/blob/master/Images/Zapytanie4.geojson)
 
 Zapytanie 5. Reuzltat taki sam jak w zapytaniu 2. Użycie komendy $geoIntersect (co zachodzi w interakcję z polygonem)
 ```js
-db.polskieMiasta.find({loc: {$geoIntersects: {$geometry: {type: "Polygon", coordinates: [[[19.259033203125, 52.3923633970718], [18.1768798828125, 51.17589926990911], 
-[19.7259521484375, 50.86144411058924], [20.5059814453125, 51.50532341149335], [20.23681640625, 52.1166256737882], [19.259033203125, 52.3923633970718]]]}}}})
+db.polskieMiasta.find(
+  {
+    loc: {
+      $geoIntersects: {
+        $geometry: {
+          type: "Polygon", 
+          coordinates: [
+            [
+              [20.390625,50.194484528931746], 
+              [20.247802734375,50.47498691278631], 
+              [19.791870117187496,50.548344490674786], 
+              [19.8577880859375, 50.666872321810715], 
+              [19.808349609375,50.830228205617445], 
+              [19.852294921874996,51.02412130394265], 
+              [20.0445556640625,50.965346321637696],
+              [20.0115966796875,51.193115244645874],
+              [20.28076171875,51.26191485308454],
+              [20.423583984375, 51.334043778789415],
+              [20.753173828125, 51.144894309328016],
+              [21.1376953125,51.138001488062564],
+              [21.5167236328125,51.0033856925319],
+              [21.8353271484375,51.07591977545679],
+              [21.829833984375,50.719069112580804],
+              [20.7421875,50.240178884797025],
+              [20.401611328125,50.1804159214388],
+              [20.390625,50.194484528931746]
+            ]
+          ]
+        }
+      }
+    }
+  }
+)
 ```
 Mapka dla zapytania 5: [Geojson5](https://github.com/adrozdowski/NoSQL/blob/master/Images/Zapytanie2.geojson) 
 
 Zapytanie 6. Miasta na drodze pomiędzy Gdańskiem a Zakopanem:
 ```js
-db.polskieMiasta.find({loc: {$geoIntersects: {$geometry: {type: "LineString", coordinates: [ [[18.655128479003906,54.34815256064472]], 
-[19.948768615722656,49.29803885147804]]}}}})
+db.polskieMiasta.find(
+  {
+    loc: {
+      $geoIntersects: {
+        $geometry: {
+          type: "LineString", 
+          coordinates: [ 
+            [
+              [18.655128479003906,54.34815256064472], 
+              [19.948768615722656,49.29803885147804]
+            ]
+          ]
+        }
+      }
+    }
+  }
+)
 ```
 Mapka dla zapytania 6: [Geojson6](https://github.com/adrozdowski/NoSQL/blob/master/Images/Zapytanie6.geojson)
