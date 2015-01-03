@@ -34,3 +34,10 @@ db.words.mapReduce(
 ```
 
 W kolekcji anagramy znajdują się pary (posortowane litery - słowa, które zawierają te litery oddzielone przecinkami).
+
+
+### Zadanie 3 - WIKIPEDIA
+
+Do wykonania zadania posłużyłem się biblioteką napisaną w C++ xml2json. Zawartoścć biblioteki znajduje się w [linku](https://github.com/Cheedoong/xml2json).
+
+
