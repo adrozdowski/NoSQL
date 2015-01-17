@@ -94,7 +94,7 @@ Type "it" for more
 
 ### Zadanie 3 - Wikipedia
 
-Do skonwertowania xmla to jsona stworzyłem program([link](https://github.com/klatoszewski/nosql/tree/master/konwerter)) w c++ z wykorzystaniem biblioteki([link](https://github.com/Cheedoong/xml2json)).
+Do skonwertowania xmla to jsona stworzyłem program w c++ z wykorzystaniem biblioteki([link](https://github.com/Cheedoong/xml2json)).
 
 Kod, który użyłem do konwersji wygląda następująco:
 
