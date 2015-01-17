@@ -44,6 +44,8 @@ Czas mapreduce: 0m3.033s
 
 ![alt text](https://raw.githubusercontent.com/adrozdowski/NoSQL/master/anagramymap.png "")
 
+Wnioski: W czasie wykonania mapreduce został wykorzystany tylko jeden rdzeń. Próbowałem także powyłączać wszystkie procesy, aby zużycie tylko jednego rdzenia było bardziej widoczne. Mam nadzieję, że powyższy screenshot to obrazuje.
+
 W kolecji 'anagramy' sa pary - posortowane litery - slowa zawierajace te litery.
 
 ```sh
@@ -200,6 +202,8 @@ db.wikipedia.mapReduce(
 Czas mapreduce: 140m 28.112s
 
 ![alt text](https://raw.githubusercontent.com/adrozdowski/NoSQL/master/wikimap.png "")
+
+Wnioski: W czasie wykonania mapreduce został wykorzystany tylko jeden rdzeń. Próbowałem także powyłączać wszystkie procesy, aby zużycie tylko jednego rdzenia było bardziej widoczne. Mam nadzieję, że powyższy screenshot to obrazuje.
 
 Częstotliwość występowania słów:
 
